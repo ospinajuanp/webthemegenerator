@@ -1,0 +1,10 @@
+.Sample{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    height: calc(100vh - 2rem);
+    border: 1px solid var(--color-primary);
+    border-radius: 2px;
+    box-shadow: 0px 0px 15px -5px var(--color-primary);
+}
