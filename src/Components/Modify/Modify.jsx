@@ -1,14 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSun } from "@fortawesome/free-regular-svg-icons";
 import './Modify.css';
 
 const Modify = () => {
+    const [mode, setMode] = useState(localStorage.getItem('mode') || 'dark');
+
+    useEffect(() => {
+        localStorage.setItem('mode', mode);
+        document.body.className = localStorage.getItem('mode') || mode;
+    }, [mode]);
+
+    const changeMode = () => {
+        if (mode === 'dark') {
+            setMode('light');
+        }else if(mode === 'light'){
+            setMode('contrast');
+        }else {
+            setMode('dark');
+        }
+    }
+
     return (
         <div className='Modify'>
             <nav className='nav'>
                 <div className='nav-left'>@OSPINAJUANP</div>
-                <div className='nav-right'><button className='nav-btn_mode' type="button"><FontAwesomeIcon icon={faSun} /></button></div>
+                <div className='nav-right'><button className='nav-btn_mode' type="button" onClick={changeMode}><FontAwesomeIcon icon={faSun} /></button></div>
             </nav>
             <div className='content'>
                 <form action="form">
@@ -27,10 +44,10 @@ const Modify = () => {
                 <div className='content-css'>
                     <textarea name="textarea" className='content-css_textarea' >
                     </textarea>
-                </div>
 
-                <div className='content-btn'>
-                    <button className='content-btn_copy'>Copiar</button>
+                    <div className='content-btn'>
+                        <button className='content-btn_copy'>Copiar</button>
+                    </div>
                 </div>
             </div>
         </div>
