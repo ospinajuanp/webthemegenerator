@@ -1,0 +1,154 @@
+@charset "UTF-8";
+/*
+    1. Posicionamiento
+    2. Modelo de caja
+    3. Tipografía
+    4. Visuales
+    5. Otros
+*/
+::-webkit-scrollbar {
+  width: 0.8rem;
+  border-radius: 4px;
+  background-color: #5f5f5f;
+}
+
+/* Here we define custom properties */
+:root {
+  /* Here we define color*/
+  --color-primary:#181818;
+  --color-secondary:#f0f0f0;
+  --color-tertiary:#0056B3;
+  --color-quaternary:#0099F7;
+  /* Here we define typography*/
+  --typography-primary: Helvetica,arial,sans-serif;
+  --typography-secondary: Verdana;
+}
+
+/* Here we define dark mode*/
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary:#f0f0f0;
+    --color-secondary:#181818;
+    --color-tertiary:#0099F7;
+    --color-quaternary:#0056B3;
+  }
+}
+/* Optional */
+/* Here we define Contrast High */
+@media (prefers-contrast: high) {
+  :root {
+    --color-primary:#000;
+    --color-secondary:#fff;
+    --color-tertiary:#00F260;
+    --color-quaternary:#007BFF;
+  }
+}
+/* Disable the animations in case the user has configured the mode without animation.  */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none;
+    transition: none;
+  }
+}
+/* Reset the margin and padding of all tags */
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  vertical-align: baseline;
+}
+
+/* We avoid problems with images */
+img, picture, video, iframe, figure {
+  max-width: 100%;
+  width: 100%;
+  display: block;
+  /* optional */
+  object-fit: cover;
+  object-position: center center;
+}
+
+/* We reset the links to work as boxes */
+a {
+  display: block;
+}
+
+/* except those found in paragraphs */
+p a {
+  display: inline;
+}
+
+/* We remove the dots from the <li>.  */
+li {
+  list-style-type: none;
+}
+
+/* We configure soft anchors */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Deactivate default styles of the main text labels */
+h1, h2, h3, h4, h5, h6, p, span, a, strong, blockquote, i, b, u, em {
+  font-size: 1em;
+  font-weight: inherit;
+  font-style: inherit;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Avoiding problems with pseudo-elements in quotes */
+blockquote:before, blockquote:after, q:before, q:after {
+  content: "";
+  content: none;
+}
+
+/* We configure the text we select */
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+}
+
+/* We level typography and form placement problems. */
+form, input, textarea, select, button, label {
+  font-family: inherit;
+  font-size: inherit;
+  hyphens: auto;
+  background-color: transparent;
+  display: block;
+  color: inherit;
+  /* Optional */
+  appearance: none;
+}
+
+/* We reset the tables */
+table, tr, td {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Avoid SVG problems */
+svg {
+  width: 100%;
+  display: block;
+  fill: currentColor;
+}
+
+/* Configuration for the entire website */
+body {
+  min-height: 100vh;
+  font-size: 100%;
+  font-family: var(--typography-primary);
+  color: var(--color-primary);
+  background-color: var(--color-secondary);
+  /* Optional */
+  line-height: 1.4em;
+  hyphens: auto;
+  /* To make the typography look more defined */
+  font-smooth: always;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/*# sourceMappingURL=resetStyle.css.map */
