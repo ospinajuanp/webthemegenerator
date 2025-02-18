@@ -4,7 +4,12 @@ import './Sample.css';
 const Sample = () => {
     return (
         <div className='Sample'>
-            b
+            <div className='Sample-tags'>
+
+            </div>
+            <div className='Sample-content'>
+                
+            </div>
         </div>
     );
 };

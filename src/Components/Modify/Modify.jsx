@@ -4,10 +4,14 @@ import { faSun } from "@fortawesome/free-regular-svg-icons";
 import './Modify.css';
 
 const Modify = () => {
-    const [mode, setMode] = useState(localStorage.getItem('mode') || 'dark');
+    const [mode, setMode] = useState(localStorage.getItem('mode'));
+    const [intensity, setIntensity] = useState(localStorage.getItem('intensity'));
+    const [color, setColor] = useState(localStorage.getItem('color'));
 
     useEffect(() => {
-        localStorage.setItem('mode', mode);
+        localStorage.setItem('mode', mode || 'dark');
+        localStorage.setItem('intensity', intensity || 3);
+        localStorage.setItem('color', color || '#000');
         document.body.className = localStorage.getItem('mode') || mode;
     }, [mode]);
 
@@ -31,13 +35,13 @@ const Modify = () => {
                 <form action="form">
                     <div className='form-intensity'>
                         <label className='form-intensity_text' htmlFor="intensity">Intensidad</label>
-                        <input className='form-intensity_range' name='intensity' type="range" min="0" max="5"/> 
-                        <label >0</label>
+                        <input className='form-intensity_range' name='intensity' type="range" min="0" max="5" onChange={(e) => setIntensity(e.target.value)} id='intensity' value={intensity}/> 
+                        <label >{intensity}</label>
                     </div>
                     <div className='form-color'>
                         <label htmlFor="color" className='form-color_text'>Color Primario</label>
-                        <input type="color" name="color" className='form-color_input'/>
-                        <label>#ffffff</label>
+                        <input type="color" name="color" className='form-color_input' onChange={(e) => setColor(e.target.value)} id='color' value={color}/>
+                        <label>{color}</label>
                     </div>
                 </form>
 
