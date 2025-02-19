@@ -44,7 +44,8 @@ const Modify = ({color, setColor, solidColor, setSolidColor}) => {
         let w = chroma(color).darken(intensity)
         w = w.hex();
         setSolidColor(w);
-        document.getElementById('solidColor').style.backgroundColor = solidColor;
+        document.getElementById('solidColor').style.backgroundColor = color;
+        document.getElementById('solidColor').style.color = w;
     }
 
     return (
