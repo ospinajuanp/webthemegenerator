@@ -1,19 +1,35 @@
 import React, { useState, useEffect } from 'react';
+import chroma from 'chroma-js';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSun } from "@fortawesome/free-regular-svg-icons";
 import './Modify.css';
 
-const Modify = () => {
-    const [mode, setMode] = useState(localStorage.getItem('mode'));
-    const [intensity, setIntensity] = useState(localStorage.getItem('intensity'));
-    const [color, setColor] = useState(localStorage.getItem('color'));
-
+const Modify = ({color, setColor, solidColor, setSolidColor}) => {
+    const [mode, setMode] = useState(localStorage.getItem('mode') || 'dark');
+    const [intensity, setIntensity] = useState(localStorage.getItem('intensity') || 3);
+    
+    
     useEffect(() => {
         localStorage.setItem('mode', mode || 'dark');
-        localStorage.setItem('intensity', intensity || 3);
-        localStorage.setItem('color', color || '#000');
         document.body.className = localStorage.getItem('mode') || mode;
     }, [mode]);
+
+    useEffect(() => {
+        localStorage.setItem('intensity', intensity || 3);
+    }, [intensity]);
+
+    useEffect(() => {
+        localStorage.setItem('color', color || '#000');
+        changeSolidColor(color);
+    }, [color]);
+
+    useEffect(() => {
+        localStorage.setItem('solidColor', solidColor || color);
+    }, [solidColor]);
+
+    
+
+
 
     const changeMode = () => {
         if (mode === 'dark') {
@@ -23,6 +39,12 @@ const Modify = () => {
         }else {
             setMode('dark');
         }
+    }
+    const changeSolidColor = () => {
+        let w = chroma(color).darken(intensity)
+        w = w.hex();
+        setSolidColor(w);
+        document.getElementById('solidColor').style.backgroundColor = solidColor;
     }
 
     return (
@@ -35,13 +57,18 @@ const Modify = () => {
                 <form action="form">
                     <div className='form-intensity'>
                         <label className='form-intensity_text' htmlFor="intensity">Intensidad</label>
-                        <input className='form-intensity_range' name='intensity' type="range" min="0" max="5" onChange={(e) => setIntensity(e.target.value)} id='intensity' value={intensity}/> 
+                        <input className='form-intensity_range' name='intensity' type="range" min="1" max="5" onChange={(e) => setIntensity(e.target.value)} id='intensity' value={intensity}/> 
                         <label >{intensity}</label>
                     </div>
                     <div className='form-color'>
-                        <label htmlFor="color" className='form-color_text'>Color Primario</label>
-                        <input type="color" name="color" className='form-color_input' onChange={(e) => setColor(e.target.value)} id='color' value={color}/>
+                        <label htmlFor="color" className='form-color_text'>Color</label>
+                        <input type="color" name="color" className='form-color_input' onChange={(e) => {setColor(e.target.value)}} id='color' value={color}/>
                         <label>{color}</label>
+                    </div>
+                    <div className='form-solidColor'>
+                        <div className='form-solidColor_box' id='solidColor'>
+                            {solidColor}
+                        </div>
                     </div>
                 </form>
 
