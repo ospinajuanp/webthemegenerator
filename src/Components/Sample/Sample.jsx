@@ -3,16 +3,80 @@ import './Sample.css';
 
 const Sample = ({color, solidColor}) => {
 
+    let primario,secundario,fondo,texto;
+
     useEffect(() => {
-        document.getElementById('primary').style.backgroundColor = color;
-        document.getElementById('secondary').style.backgroundColor = solidColor;
-        document.getElementById('background').style.backgroundColor = generateThemeColors(color).background;
-        document.getElementById('text').style.backgroundColor = generateThemeColors(color).text;
+        primario = color;
+        secundario = solidColor;
+        fondo = generateThemeColors(color).background;
+        texto = generateThemeColors(color).text;
+
+        let boxPrimario = document.getElementById('primary');
+        let boxSecundario = document.getElementById('secondary');
+        let boxFondo = document.getElementById('background');
+        let boxText = document.getElementById('text');
+
+
+        boxPrimario.style.backgroundColor = color;
+        boxPrimario.style.color = texto;
+        boxPrimario.innerText = 'Primario '+primario;
+        
+        boxSecundario.style.backgroundColor = solidColor;
+        boxSecundario.style.color = texto;
+        boxSecundario.innerText = 'Secundario '+secundario;
+
+        boxFondo.style.backgroundColor = fondo;
+        boxFondo.style.color = texto;
+        boxFondo.innerText = 'Fondo '+fondo;
+
+        boxText.style.backgroundColor = texto;
+        boxText.style.color = color;
+        boxText.innerText = 'Texto '+texto;
+
+        let content = document.getElementsByClassName('main')[0];
+        content.style.backgroundColor = fondo;
+        content.style.color = texto;
+
+        let button = document.getElementsByClassName('button')[0];
+        button.style.backgroundColor = primario;
+        button.children[0].style.backgroundColor = fondo;
+        button.children[0].style.color = texto;
+        button.children[0].style.borderColor = secundario;
+
+        button.children[0].addEventListener("mouseenter", () => {
+            button.children[0].style.backgroundColor = texto; // Color en hover
+            button.children[0].style.color = fondo; // Color en hover
+            button.children[0].style.borderColor = color; // Color en hover
+            button.style.backgroundColor = secundario; // Color en hover
+
+        });
+        
+        button.children[0].addEventListener("mouseleave", () => {
+            button.children[0].style.backgroundColor = fondo; // Restaura el color
+            button.children[0].style.color = texto; // Restaura el color
+            button.children[0].style.borderColor = secundario; // Restaura el color
+            button.children[0].style.borderColor = secundario; // Restaura el color
+            button.style.backgroundColor= primario; // Restaura el color
+        });
+
+        let link = document.getElementsByClassName('link')[0];
+        link.style.backgroundColor = primario;
+        link.children[0].style.color = texto;
+        link.children[0].style.backgroundColor = fondo;
+        
+        link.children[0].addEventListener("mouseenter", () => {
+            link.children[0].style.backgroundColor = texto; // Color en hover
+            link.children[0].style.color = fondo; // Color en hover
+        });
+        
+        link.children[0].addEventListener("mouseleave", () => {
+            link.children[0].style.backgroundColor = fondo; // Restaura el color
+            link.children[0].style.color = texto; // Restaura el color
+        });
+
+
     }, [color, solidColor]);
     
-    // localStorage.setItem('mode', mode || 'dark');
-    // localStorage.setItem('intensity', intensity || 3);
-    // localStorage.setItem('color', color || '#000');
     function generateThemeColors(baseColor) {
         let [h, s, l] = hexToHSL(baseColor);
     
@@ -73,32 +137,35 @@ const Sample = ({color, solidColor}) => {
     }
     
     // Prueba con un color base
-    const themeColors = generateThemeColors("#007BFF");
+    // const themeColors = generateThemeColors("#007BFF");
     
     return (
         <div className='Sample'>
-            <div>
-                <div id='primary'>Color 1</div>
-                <div id='secondary'>Color 2</div>
-                <div id='background'>Color 3</div>
-                <div id='text'>Color 4</div>
+            <div className='Sample-colors'>
+                <div id='primary'>Color Primario</div>
+                <div id='secondary'>Color Secundario</div>
+                <div id='background'>Color Fondo</div>
+                <div id='text'>Color Texto</div>
             </div>
-            <div className='Sample-tags'>
+            {/* <div className='Sample-tags'>
                 <button type="button">botonera</button>
                 <button type="button">botonera</button>
                 <button type="button">botonera</button>
                 <button type="button">botonera</button>
-            </div>
+            </div> */}
             
             <div className='Sample-content'>
+                <label htmlFor="main">Body Y Texto</label>
                 <div className='main'>
-                    <h1>Sample</h1>
-                    <p>Sample</p>
+                    <h1>Sample H1</h1>
+                    <p>Sample P, Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem error dolore, sequi autem a, eligendi eius, officiis sunt aspernatur placeat dolores? Assumenda quibusdam laboriosam odio culpa totam distinctio tenetur obcaecati.</p>
                 </div>
-                <div>
+                <label htmlFor="button">Botón</label>
+                <div className='button'>
                     <button>Botón Ejemplo</button>
                 </div>
-                <div>
+                <label htmlFor="link">Hipervínculo </label>
+                <div className='link'>
                     <a href="/">Hipervínculo</a>
                 </div>
             </div>
