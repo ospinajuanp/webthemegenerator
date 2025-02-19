@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSun } from "@fortawesome/free-regular-svg-icons";
 import './Modify.css';
 
-const Modify = ({color, setColor, solidColor, setSolidColor}) => {
+const Modify = ({color, setColor, solidColor, setSolidColor, css}) => {
     const [mode, setMode] = useState(localStorage.getItem('mode') || 'dark');
     const [intensity, setIntensity] = useState(localStorage.getItem('intensity') || 3);
     
@@ -74,7 +74,7 @@ const Modify = ({color, setColor, solidColor, setSolidColor}) => {
                 </form>
 
                 <div className='content-css'>
-                    <textarea name="textarea" className='content-css_textarea' >
+                    <textarea name="textarea" className='content-css_textarea' value={css} >
                     </textarea>
 
                     <div className='content-btn'>

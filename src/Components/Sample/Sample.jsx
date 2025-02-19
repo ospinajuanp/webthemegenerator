@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './Sample.css';
 
-const Sample = ({color, solidColor}) => {
+const Sample = ({color, solidColor, setCss}) => {
 
     let primario,secundario,fondo,texto;
 
@@ -10,6 +10,12 @@ const Sample = ({color, solidColor}) => {
         secundario = solidColor;
         fondo = generateThemeColors(color).background;
         texto = generateThemeColors(color).text;
+        setCss(`:root{
+--color-primary:${primario};
+--color-tertiary:${secundario};
+--color-background:${fondo};
+--color-text:${texto};
+}`)
 
         let boxPrimario = document.getElementById('primary');
         let boxSecundario = document.getElementById('secondary');
