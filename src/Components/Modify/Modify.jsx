@@ -14,18 +14,18 @@ const Modify = ({color, setColor, solidColor, setSolidColor, css}) => {
         document.body.className = localStorage.getItem('mode') || mode;
     }, [mode]);
 
-    useEffect(() => {
-        localStorage.setItem('intensity', intensity || 3);
-    }, [intensity]);
+    // useEffect(() => {
+    //     localStorage.setItem('intensity', intensity || 3);
+    // }, [intensity]);
 
     useEffect(() => {
         localStorage.setItem('color', color || '#000');
         changeSolidColor(color);
     }, [color]);
 
-    useEffect(() => {
-        localStorage.setItem('solidColor', solidColor || color);
-    }, [solidColor]);
+    // useEffect(() => {
+    //     localStorage.setItem('solidColor', solidColor || color);
+    // }, [solidColor]);
 
     
 
