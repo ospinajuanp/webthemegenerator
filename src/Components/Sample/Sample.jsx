@@ -1,15 +1,38 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Sample.css';
 
 const Sample = ({color, solidColor, setCss}) => {
 
+    const [modeColor, setModeColor] = useState('light');
+
     let primario,secundario,fondo,texto;
 
     useEffect(() => {
-        primario = color;
-        secundario = solidColor;
-        fondo = generateThemeColors(color).background;
-        texto = generateThemeColors(color).text;
+
+        if (modeColor === 'light') {
+            
+            primario = color;
+            secundario = solidColor;
+            fondo = generateThemeColors(color).background;
+            texto = generateThemeColors(color).text;
+        }
+
+        if (modeColor === 'dark') {
+            
+            primario = color;
+            secundario = solidColor;
+            fondo = generateThemeColors(color).text;
+            texto = generateThemeColors(color).background;
+        }
+        if (modeColor === 'contrast') {
+            
+            primario = color;
+            secundario = solidColor;
+            fondo = '#fff';
+            texto = '#000';
+        }
+
+
         setCss(`:root{
 --color-primary:${primario};
 --color-tertiary:${secundario};
@@ -21,6 +44,8 @@ const Sample = ({color, solidColor, setCss}) => {
         let boxSecundario = document.getElementById('secondary');
         let boxFondo = document.getElementById('background');
         let boxText = document.getElementById('text');
+
+        document.getElementById('solidColor').style.color = texto;
 
 
         boxPrimario.style.backgroundColor = color;
@@ -81,7 +106,7 @@ const Sample = ({color, solidColor, setCss}) => {
         });
 
 
-    }, [color, solidColor]);
+    }, [color, solidColor,modeColor]);
     
     function generateThemeColors(baseColor) {
         let [h, s, l] = hexToHSL(baseColor);
@@ -144,9 +169,34 @@ const Sample = ({color, solidColor, setCss}) => {
     
     // Prueba con un color base
     // const themeColors = generateThemeColors("#007BFF");
+
+    const changeModeColor = (modeColorSelect) => {
+        setModeColor(modeColorSelect)
+        if (modeColorSelect === 'light') {
+            document.getElementsByClassName('btn-light')[0].classList.add('active');
+            document.getElementsByClassName('btn-contrast')[0].classList.remove('active');
+            document.getElementsByClassName('btn-dark')[0].classList.remove('active');
+        }
+        if (modeColorSelect === 'dark') {
+            document.getElementsByClassName('btn-dark')[0].classList.add('active');
+            document.getElementsByClassName('btn-light')[0].classList.remove('active');
+            document.getElementsByClassName('btn-contrast')[0].classList.remove('active');
+        }
+        if (modeColorSelect === 'contrast') {
+            document.getElementsByClassName('btn-contrast')[0].classList.add('active');
+            document.getElementsByClassName('btn-dark')[0].classList.remove('active');
+            document.getElementsByClassName('btn-light')[0].classList.remove('active');
+        }
+    }
     
     return (
         <div className='Sample'>
+
+            <div className='Sample-type'>
+                <button className='sample-type_btn btn-light active' type="button" onClick={() => changeModeColor('light')}>light</button>
+                <button className='sample-type_btn btn-dark' type="button" onClick={() => changeModeColor('dark')}>Dark</button>
+                <button className='sample-type_btn btn-contrast' type="button" onClick={() => changeModeColor('contrast')}>Contrast</button>
+            </div>
             <div className='Sample-colors'>
                 <div id='primary'>Color Primario</div>
                 <div id='secondary'>Color Secundario</div>

@@ -6,7 +6,7 @@ import './Modify.css';
 
 const Modify = ({color, setColor, solidColor, setSolidColor, css}) => {
     const [mode, setMode] = useState(localStorage.getItem('mode') || 'dark');
-    const [intensity, setIntensity] = useState(localStorage.getItem('intensity') || 3);
+    const [intensity, setIntensity] = useState(localStorage.getItem('intensity') || 1);
     
     
     useEffect(() => {
@@ -45,9 +45,8 @@ const Modify = ({color, setColor, solidColor, setSolidColor, css}) => {
         w = w.hex();
         setSolidColor(w);
         document.getElementById('solidColor').style.backgroundColor = color;
-        document.getElementById('solidColor').style.color = w;
     }
-
+    
     return (
         <div className='Modify'>
             <nav className='nav'>
@@ -58,7 +57,7 @@ const Modify = ({color, setColor, solidColor, setSolidColor, css}) => {
                 <form action="form">
                     <div className='form-intensity'>
                         <label className='form-intensity_text' htmlFor="intensity">Intensidad</label>
-                        <input className='form-intensity_range' name='intensity' type="range" min="1" max="5" onChange={(e) => setIntensity(e.target.value)} id='intensity' value={intensity}/> 
+                        <input className='form-intensity_range' name='intensity' type="range" min="1" max="3" onChange={(e) => setIntensity(e.target.value)} id='intensity' value={intensity}/> 
                         <label >{intensity}</label>
                     </div>
                     <div className='form-color'>
